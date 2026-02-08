@@ -1,0 +1,19 @@
+# Безопасный ввод числа с плавающей точкой
+def get_valid_float(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Enter a number!")
+
+
+# Безопасный ввод индекса элемента списка
+def get_valid_index(prompt, max_index):
+    while True:
+        try:
+            val = int(input(prompt))
+            if 1 <= val <= max_index:
+                return val - 1
+            print("Out of range")
+        except ValueError:
+            print("Enter integer!")
