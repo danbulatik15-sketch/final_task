@@ -1,0 +1,26 @@
+import math
+from .shape import Shape
+
+
+# Класс круга
+class Circle(Shape):
+    def __init__(self, color, radius):
+        # Вызов конструктора родителя
+        super().__init__(color)
+        # Проверка радиуса
+        if radius <= 0:
+            raise ValueError("Radius must be positive")
+        # Сохранение радиуса
+        self._radius = radius
+
+    # Вычисление площади круга
+    def get_area(self):
+        return math.pi * self._radius ** 2
+
+    # Вычисление длины окружности
+    def get_perimeter(self):
+        return 2 * math.pi * self._radius
+
+    # Строковое представление круга
+    def __str__(self):
+        return f"Circle ({self._color}) | R={self._radius}"
