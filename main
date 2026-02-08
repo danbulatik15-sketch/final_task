@@ -1,0 +1,115 @@
+# Импорт классов фигур из пакета shapes
+from shapes import Circle, Rectangle, Triangle
+# Импорт вспомогательных функций для безопасного ввода
+from utils import get_valid_float, get_valid_index
+
+
+def main():
+    # Список для хранения созданных фигур
+    shapes_db = []
+
+    # Основной бесконечный цикл программы
+    while True:
+        # Вывод меню программы
+        print("\n--- SHAPES MANAGER ---")
+        print("1. Add new shape")
+        print("2. List all shapes")
+        print("3. Show shape details")
+        print("4. Remove shape")
+        print("5. Show sum of all areas")
+        print("6. Show sum of all perimeters")
+        print("7. Exit")
+
+        # Запрашиваем пункт меню у пользователя
+        choice = input("Choose: ")
+
+        # Добавление новой фигуры
+        if choice == "1":
+            print("1. Circle, 2. Rectangle, 3. Triangle")
+            # Запрашиваем тип фигуры
+            t = input("Type: ")
+            # Запрашиваем цвет фигуры
+            color = input("Color: ")
+
+            try:
+                # Создание круга
+                if t == "1":
+                    r = get_valid_float("Radius: ")
+                    shape = Circle(color, r)
+
+                # Создание прямоугольника
+                elif t == "2":
+                    w = get_valid_float("Width: ")
+                    h = get_valid_float("Height: ")
+                    shape = Rectangle(color, w, h)
+
+                # Создание треугольника
+                elif t == "3":
+                    a = get_valid_float("Side A: ")
+                    b = get_valid_float("Side B: ")
+                    c = get_valid_float("Side C: ")
+                    shape = Triangle(color, a, b, c)
+
+                else:
+                    print("Invalid type")
+                    continue
+
+                # Добавление фигуры в список
+                shapes_db.append(shape)
+                print("Added!")
+
+            except ValueError as e:
+                # Обработка ошибок логики
+                print("Error:", e)
+
+        # Вывод всех фигур
+        elif choice == "2":
+            if not shapes_db:
+                print("Empty")
+            else:
+                for i, s in enumerate(shapes_db, 1):
+                    print(f"{i}. {s}")
+
+        # Просмотр информации по одной фигуре
+        elif choice == "3":
+            if not shapes_db:
+                print("Empty")
+                continue
+
+            # Получение корректного индекса
+            idx = get_valid_index(f"Select (1-{len(shapes_db)}): ", len(shapes_db))
+            s = shapes_db[idx]
+
+            # Вывод информации о фигуре
+            print(s)
+            print("Area:", round(s.get_area(), 2))
+            print("Perimeter:", round(s.get_perimeter(), 2))
+
+        # Удаление фигуры
+        elif choice == "4":
+            if not shapes_db:
+                print("Empty")
+                continue
+
+            idx = get_valid_index(f"Remove (1-{len(shapes_db)}): ", len(shapes_db))
+            print("Removed:", shapes_db.pop(idx))
+
+        # Вычисление суммарной площади
+        elif choice == "5":
+            print("Total area:", round(sum(s.get_area() for s in shapes_db), 2))
+
+        # Вычисление суммарного периметра
+        elif choice == "6":
+            print("Total perimeter:", round(sum(s.get_perimeter() for s in shapes_db), 2))
+
+        # Выход из программы
+        elif choice == "7":
+            break
+
+        else:
+            print("Invalid option")
+
+
+# Точка входа в программу
+if __name__ == "__main__":
+    main()
