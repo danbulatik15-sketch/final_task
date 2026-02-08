@@ -1,0 +1,26 @@
+from .shape import Shape
+
+
+# Класс прямоугольника
+class Rectangle(Shape):
+    def __init__(self, color, width, height):
+        # Вызов конструктора родителя
+        super().__init__(color)
+        # Проверка корректности размеров
+        if width <= 0 or height <= 0:
+            raise ValueError("Dimensions must be positive")
+        # Сохранение параметров
+        self._width = width
+        self._height = height
+
+    # Вычисление площади
+    def get_area(self):
+        return self._width * self._height
+
+    # Вычисление периметра
+    def get_perimeter(self):
+        return 2 * (self._width + self._height)
+
+    # Строковое представление
+    def __str__(self):
+        return f"Rectangle ({self._color}) | {self._width}x{self._height}"
