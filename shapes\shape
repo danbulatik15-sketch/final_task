@@ -1,0 +1,17 @@
+# Базовый класс для всех фигур
+class Shape:
+    def __init__(self, color):
+        # Сохраняем цвет фигуры
+        self._color = color
+
+    # Метод для вычисления площади (переопределяется в наследниках)
+    def get_area(self):
+        return 0.0
+
+    # Метод для вычисления периметра (переопределяется в наследниках)
+    def get_perimeter(self):
+        return 0.0
+
+    # Метод строкового представления объекта
+    def __str__(self):
+        return f"Shape (Color: {self._color})"
